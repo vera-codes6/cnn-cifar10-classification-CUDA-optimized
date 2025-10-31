@@ -1,0 +1,25 @@
+Hyperparameter Tuning Results Summary
+==================================================
+
+Total combinations tested: 81
+Best accuracy: 0.8607
+
+Best parameters:
+  learning_rate: 0.0005
+  batch_size: 16
+  num_filters: 64
+  num_layers: 7
+
+Top 10 Results:
+------------------------------
+model_name                          model_file  learning_rate  batch_size  num_filters  num_layers  accuracy  precision  recall  f1_score           timestamp
+   Model 9  model_9_lr0.0005_bs16_f64_l7.keras         0.0005          16           64           7    0.8607   0.863623  0.8607  0.860763 2025-09-13 18:00:09
+  Model 36  model_36_lr0.001_bs16_f64_l7.keras         0.0010          16           64           7    0.8604   0.865343  0.8604  0.860437 2025-09-13 18:17:41
+  Model 18 model_18_lr0.0005_bs32_f64_l7.keras         0.0005          32           64           7    0.8558   0.861306  0.8558  0.856360 2025-09-13 18:05:53
+  Model 35  model_35_lr0.001_bs16_f64_l5.keras         0.0010          16           64           5    0.8543   0.855609  0.8543  0.853913 2025-09-13 18:16:33
+  Model 72  model_72_lr0.002_bs32_f64_l7.keras         0.0020          32           64           7    0.8541   0.858356  0.8541  0.854129 2025-09-13 18:39:59
+  Model 63  model_63_lr0.002_bs16_f64_l7.keras         0.0020          16           64           7    0.8533   0.856341  0.8533  0.851811 2025-09-13 18:34:27
+  Model 54  model_54_lr0.001_bs64_f64_l7.keras         0.0010          64           64           7    0.8526   0.856037  0.8526  0.853070 2025-09-13 18:28:31
+  Model 60  model_60_lr0.002_bs16_f32_l7.keras         0.0020          16           32           7    0.8526   0.852786  0.8526  0.852468 2025-09-13 18:31:47
+  Model 69  model_69_lr0.002_bs32_f32_l7.keras         0.0020          32           32           7    0.8516   0.851129  0.8516  0.850871 2025-09-13 18:37:18
+  Model 44  model_44_lr0.001_bs32_f64_l5.keras         0.0010          32           64           5    0.8515   0.851267  0.8515  0.850307 2025-09-13 18:22:02

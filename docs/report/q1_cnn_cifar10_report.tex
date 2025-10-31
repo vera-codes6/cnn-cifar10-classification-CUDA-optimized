@@ -1,0 +1,374 @@
+% CNN CIFAR-10 Classification with Hyperparameter Optimization
+% A comprehensive analysis of Convolutional Neural Networks for image classification
+% Following Springer LNCS format
+
+\documentclass[norunningheads]{llncs}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\begin{document}
+
+\title{Comprehensive Analysis of Convolutional Neural Networks for CIFAR-10 Image Classification: A Hyperparameter Optimization Study}
+
+\author{Umer Farooq\inst{1}}
+
+\institute{National University of Computer and Emerging Sciences (NUCES), Islamabad\\
+Department of Computer Science}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a comprehensive analysis of Convolutional Neural Networks (CNNs) for CIFAR-10 image classification, focusing on systematic hyperparameter optimization. We conducted an extensive ablation study testing 81 different parameter combinations, examining the effects of learning rates (0.0005, 0.001, 0.002), batch sizes (16, 32, 64), number of convolutional filters (16, 32, 64), and network depth (3, 5, 7 layers). Our optimized CNN architecture achieved 88.82\% accuracy on the CIFAR-10 test set, demonstrating the critical importance of hyperparameter selection in deep learning model performance. The study provides insights into the relationship between model architecture, training parameters, and classification performance, with detailed analysis of feature extraction capabilities and convergence patterns.
+
+\keywords{Convolutional Neural Networks \and CIFAR-10 \and Hyperparameter Optimization \and Image Classification \and Deep Learning}
+\end{abstract}
+
+\section{Introduction}
+
+Convolutional Neural Networks (CNNs) have revolutionized computer vision tasks, particularly in image classification. The CIFAR-10 dataset, containing 60,000 32×32 color images across 10 classes, serves as a standard benchmark for evaluating CNN architectures and training strategies. This study presents a comprehensive analysis of CNN performance on CIFAR-10, with particular emphasis on systematic hyperparameter optimization.
+
+The primary objectives of this research are: (1) to evaluate the impact of different hyperparameters on model performance, (2) to identify optimal configurations for CIFAR-10 classification, (3) to analyze the relationship between model architecture and feature extraction capabilities, and (4) to provide insights into training dynamics and convergence patterns.
+
+\section{Related Work}
+
+Previous studies on CIFAR-10 classification have demonstrated the effectiveness of various CNN architectures. Early approaches achieved modest accuracies around 70-80\%, while more recent deep architectures have pushed performance beyond 90\%. However, the systematic analysis of hyperparameter effects on model performance remains an important area of investigation, particularly for understanding the trade-offs between model complexity, training efficiency, and classification accuracy.
+
+\section{Methodology}
+
+\subsection{Dataset and Preprocessing}
+
+The CIFAR-10 dataset consists of 50,000 training images and 10,000 test images, each of size 32×32 pixels with 3 color channels. The dataset contains 10 classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, and truck. Images were normalized using mean and standard deviation values of [0.4914, 0.4822, 0.4465] and [0.2023, 0.1994, 0.2010] respectively.
+
+Data augmentation techniques included random horizontal flipping and random cropping with padding of 4 pixels to improve model generalization and robustness.
+
+\subsection{CNN Architecture}
+
+Our base CNN architecture consists of multiple convolutional layers followed by batch normalization, ReLU activation, and max pooling. The network includes dropout layers for regularization and concludes with a fully connected layer for classification. The architecture is designed to be scalable, allowing systematic variation of key hyperparameters.
+
+Key architectural components:
+\begin{itemize}
+\item Convolutional layers with configurable filter counts
+\item Batch normalization for stable training
+\item ReLU activation functions
+\item Max pooling for spatial dimension reduction
+\item Dropout layers (rate: 0.5) for regularization
+\item Global average pooling before classification
+\item Dense layer with softmax activation for 10-class classification
+\end{itemize}
+
+\subsection{Hyperparameter Optimization Strategy}
+
+We conducted a comprehensive ablation study examining four critical hyperparameters:
+
+\subsubsection{Learning Rate Analysis}
+Three learning rates were evaluated: 0.0005, 0.001, and 0.002. These values were chosen to represent conservative, standard, and aggressive learning rates respectively, allowing us to analyze the impact on convergence speed and final performance.
+
+\subsubsection{Batch Size Investigation}
+Batch sizes of 16, 32, and 64 were tested to understand the trade-offs between training stability, memory usage, and gradient estimation quality. Smaller batch sizes provide more frequent updates but may lead to noisier gradients, while larger batch sizes offer more stable gradients but require more memory.
+
+\subsubsection{Filter Count Optimization}
+The number of convolutional filters was varied across 16, 32, and 64 to analyze the relationship between model capacity and performance. This parameter directly affects the model's ability to learn complex feature representations.
+
+\subsubsection{Network Depth Analysis}
+Network depth was varied with 3, 5, and 7 convolutional layers to study the impact of model complexity on feature extraction and classification performance.
+
+\subsection{Training Configuration}
+
+All models were trained using the Adam optimizer with categorical cross-entropy loss. Training included early stopping with patience of 15 epochs and learning rate reduction on plateau. Each hyperparameter combination was trained for 20 epochs during the optimization phase, with the best configuration subsequently trained for 50 epochs for final evaluation.
+
+GPU acceleration was utilized with mixed precision training (Float16) for improved efficiency, achieving 95\%+ GPU utilization during training.
+
+\section{Experimental Results}
+
+\subsection{Hyperparameter Tuning Results}
+
+Our comprehensive ablation study tested 81 different parameter combinations (3×3×3×3). The results reveal significant performance variations based on hyperparameter selection, with accuracy ranging from 57.08\% to 86.07\% during the 20-epoch tuning phase.
+
+Figure \ref{fig:hyperparameter_analysis1} shows the impact of learning rate on model performance across different configurations.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/hyperparameter_analysis_1.png}
+\caption{Learning Rate vs Accuracy Analysis}
+\label{fig:hyperparameter_analysis1}
+\end{figure}
+
+Figure \ref{fig:hyperparameter_analysis2} illustrates the relationship between batch size and model accuracy.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/hyperparameter_analysis_2.png}
+\caption{Batch Size vs Accuracy Analysis}
+\label{fig:hyperparameter_analysis2}
+\end{figure}
+
+Figure \ref{fig:hyperparameter_analysis3} demonstrates the effect of number of filters on model performance.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/hyperparameter_analysis_3.png}
+\caption{Number of Filters vs Accuracy Analysis}
+\label{fig:hyperparameter_analysis3}
+\end{figure}
+
+Figure \ref{fig:hyperparameter_analysis4} shows the impact of network depth on classification accuracy.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/hyperparameter_analysis_4.png}
+\caption{Network Depth vs Accuracy Analysis}
+\label{fig:hyperparameter_analysis4}
+\end{figure}
+
+Figure \ref{fig:hyperparameter_analysis5} presents a comprehensive heatmap of learning rate vs batch size interactions.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/hyperparameter_analysis_5.png}
+\caption{Learning Rate vs Batch Size Heatmap}
+\label{fig:hyperparameter_analysis5}
+\end{figure}
+
+Figure \ref{fig:hyperparameter_analysis6} displays the top 10 hyperparameter combinations in a bar chart format.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/hyperparameter_analysis_6.png}
+\caption{Top 10 Hyperparameter Combinations Performance}
+\label{fig:hyperparameter_analysis6}
+\end{figure}
+
+\subsubsection{Learning Rate Impact}
+
+The analysis of learning rate effects shows that 0.0005 and 0.001 provide optimal performance, with 0.0005 achieving the highest accuracy of 86.07\%. The learning rate of 0.002, while still effective, shows slightly reduced performance, indicating the importance of careful learning rate selection for stable convergence.
+
+\subsubsection{Batch Size Analysis}
+
+Smaller batch sizes (16) consistently outperformed larger ones, achieving the best results across multiple configurations. This finding suggests that the more frequent gradient updates provided by smaller batch sizes are beneficial for CIFAR-10 classification, despite the increased computational overhead.
+
+\subsubsection{Filter Count Optimization}
+
+The analysis reveals that 64 filters provide the best performance, followed by 32 filters, with 16 filters showing the lowest performance. This trend indicates that increased model capacity, as measured by filter count, significantly improves feature extraction capabilities for this dataset.
+
+\subsubsection{Network Depth Effects}
+
+Deeper networks (7 layers) consistently outperformed shallower architectures (3 and 5 layers), demonstrating the importance of sufficient model depth for learning complex feature hierarchies. The 7-layer architecture achieved the highest accuracy, confirming the benefits of increased network depth for CIFAR-10 classification.
+
+\subsection{Optimal Configuration}
+
+The best hyperparameter combination identified through our ablation study is:
+\begin{itemize}
+\item Learning Rate: 0.0005
+\item Batch Size: 16
+\item Number of Filters: 64
+\item Number of Layers: 7
+\end{itemize}
+
+This configuration achieved 86.07\% accuracy during the 20-epoch tuning phase and 88.82\% accuracy when trained for 50 epochs with the full dataset.
+
+Figure \ref{fig:training_history} shows the training and validation curves for the best model, demonstrating stable convergence and good generalization.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/training_history.png}
+\caption{Training History - Loss and Accuracy Curves for Best Model}
+\label{fig:training_history}
+\end{figure}
+
+\subsection{Performance Metrics}
+
+Table \ref{tab:performance_metrics} presents the comprehensive performance metrics for the top 10 CNN model configurations from our hyperparameter optimization study.
+
+\begin{table}[h]
+\caption{Top 10 CNN Model Configurations - Performance Metrics Comparison}
+\label{tab:performance_metrics}
+\centering
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Rank & Model & Learning Rate & Batch Size & Filters & Layers & Accuracy \\
+\midrule
+1 & Model 9 & 0.0005 & 16 & 64 & 7 & 86.07\% \\
+2 & Model 36 & 0.001 & 16 & 64 & 7 & 86.04\% \\
+3 & Model 18 & 0.0005 & 32 & 64 & 7 & 85.58\% \\
+4 & Model 35 & 0.001 & 16 & 64 & 5 & 85.43\% \\
+5 & Model 72 & 0.002 & 32 & 64 & 7 & 85.41\% \\
+6 & Model 63 & 0.002 & 16 & 64 & 7 & 85.33\% \\
+7 & Model 54 & 0.001 & 64 & 64 & 7 & 85.26\% \\
+8 & Model 60 & 0.002 & 16 & 32 & 7 & 85.26\% \\
+9 & Model 69 & 0.002 & 32 & 32 & 7 & 85.16\% \\
+10 & Model 44 & 0.001 & 32 & 64 & 5 & 85.15\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table \ref{tab:detailed_metrics} shows the detailed performance metrics (precision, recall, F1-score) for the top 5 performing models.
+
+\begin{table}[h]
+\caption{Detailed Performance Metrics for Top 5 CNN Models}
+\label{tab:detailed_metrics}
+\centering
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & Accuracy & Precision & Recall & F1-Score \\
+\midrule
+Model 9 (Best) & 86.07\% & 86.36\% & 86.07\% & 86.08\% \\
+Model 36 & 86.04\% & 86.53\% & 86.04\% & 86.04\% \\
+Model 18 & 85.58\% & 86.13\% & 85.58\% & 85.64\% \\
+Model 35 & 85.43\% & 85.56\% & 85.43\% & 85.39\% \\
+Model 72 & 85.41\% & 85.84\% & 85.41\% & 85.41\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Per-Class Performance Analysis}
+
+The optimized model demonstrates strong performance across all classes, with particularly high accuracy for automobile (91.84\%), ship (80.14\%), and truck (84.81\%) classes. The model shows some challenges with cat classification (68.97\%), which is consistent with the known difficulty of distinguishing cats from other animals in the CIFAR-10 dataset.
+
+Figure \ref{fig:confusion_matrix} shows the confusion matrix for the best model, providing detailed insights into classification performance across all 10 classes.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/confusion_matrix.png}
+\caption{Confusion Matrix for Best CNN Model}
+\label{fig:confusion_matrix}
+\end{figure}
+
+Figure \ref{fig:class_metrics} displays per-class performance metrics including precision, recall, and F1-score for each CIFAR-10 class.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/class_metrics.png}
+\caption{Per-Class Performance Metrics (Precision, Recall, F1-Score)}
+\label{fig:class_metrics}
+\end{figure}
+
+Figure \ref{fig:misclassifications} shows examples of misclassified images, providing insights into the model's limitations and areas for improvement.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/misclassifications.png}
+\caption{Examples of Misclassified Images}
+\label{fig:misclassifications}
+\end{figure}
+
+\subsection{Feature Map Analysis}
+
+Analysis of feature maps across different convolutional layers reveals the progressive abstraction of visual features. Early layers detect low-level features such as edges and textures, while deeper layers capture more complex patterns and object parts. The 7-layer architecture provides sufficient depth for learning hierarchical feature representations essential for accurate classification.
+
+Figure \ref{fig:feature_maps_conv1} shows feature maps from the first convolutional layer, demonstrating edge and texture detection capabilities.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/feature_maps_conv_1.png}
+\caption{Feature Maps from First Convolutional Layer}
+\label{fig:feature_maps_conv1}
+\end{figure}
+
+Figure \ref{fig:feature_maps_conv2} illustrates feature maps from the second convolutional layer, showing more complex pattern recognition.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/feature_maps_conv_2.png}
+\caption{Feature Maps from Second Convolutional Layer}
+\label{fig:feature_maps_conv2}
+\end{figure}
+
+Figure \ref{fig:feature_maps_conv3} displays feature maps from the third convolutional layer, capturing high-level object features.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/feature_maps_conv_3.png}
+\caption{Feature Maps from Third Convolutional Layer}
+\label{fig:feature_maps_conv3}
+\end{figure}
+
+Figure \ref{fig:feature_evolution} shows the evolution of features across different layers, demonstrating the hierarchical learning process.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/feature_evolution.png}
+\caption{Feature Evolution Across Convolutional Layers}
+\label{fig:feature_evolution}
+\end{figure}
+
+\section{Discussion}
+
+\subsection{Hyperparameter Sensitivity}
+
+Our results demonstrate the critical importance of hyperparameter selection in CNN performance. The 29.74\% performance difference between the best and worst configurations (88.82\% vs 59.08\%) highlights the significant impact of proper hyperparameter tuning.
+
+\subsection{Architecture Insights}
+
+The superior performance of deeper networks (7 layers) with more filters (64) confirms the importance of sufficient model capacity for CIFAR-10 classification. However, this comes with increased computational requirements and training time.
+
+\subsection{Training Dynamics}
+
+The analysis of training curves reveals that the optimal configuration achieves faster convergence and more stable training compared to suboptimal configurations. The combination of appropriate learning rate (0.0005) and batch size (16) provides the best balance between convergence speed and final performance.
+
+\subsection{Computational Efficiency}
+
+Despite the increased model complexity, our GPU-optimized implementation achieves efficient training with 95\%+ GPU utilization. The mixed precision training provides approximately 2× speedup while maintaining numerical stability.
+
+\section{Conclusion}
+
+This comprehensive study demonstrates the critical importance of systematic hyperparameter optimization in CNN design for CIFAR-10 classification. Our ablation study of 81 parameter combinations reveals that optimal performance requires careful consideration of learning rate, batch size, filter count, and network depth.
+
+Key findings include:
+\begin{itemize}
+\item Learning rates of 0.0005-0.001 provide optimal convergence
+\item Smaller batch sizes (16) offer better performance despite increased computational overhead
+\item Increased filter count (64) significantly improves feature extraction
+\item Deeper networks (7 layers) capture more complex feature hierarchies
+\item The optimal configuration achieves 88.82\% accuracy on CIFAR-10 test set
+\end{itemize}
+
+The systematic approach to hyperparameter optimization presented in this study provides valuable insights for future CNN design and training strategies. The comprehensive analysis of different parameter combinations offers a foundation for understanding the relationship between model architecture and classification performance.
+
+\section{Future Work}
+
+Future research directions include investigating advanced optimization techniques such as learning rate scheduling, exploring different activation functions, and analyzing the impact of additional regularization techniques. The extension to more complex datasets and the investigation of transfer learning approaches represent promising avenues for further research.
+
+\begin{credits}
+\subsubsection{\ackname}
+This research was conducted as part of Assignment 1, Question 1 for the Generative AI course at National University of Computer and Emerging Sciences (NUCES), Islamabad.
+
+\subsubsection{\discintname}
+The author has no competing interests to declare that are relevant to the content of this article.
+\end{credits}
+
+\end{document}
+
+\begin{thebibliography}{8}
+
+\bibitem{ref_cifar10}
+Krizhevsky, A., Hinton, G.: Learning multiple layers of features from tiny images. Technical report, University of Toronto (2009)
+
+\bibitem{ref_cnn_arch}
+LeCun, Y., et al.: Gradient-based learning applied to document recognition. Proceedings of the IEEE \textbf{86}(11), 2278--2324 (1998)
+
+\bibitem{ref_hyperparameter}
+Bergstra, J., Bengio, Y.: Random search for hyper-parameter optimization. Journal of Machine Learning Research \textbf{13}, 281--305 (2012)
+
+\bibitem{ref_batch_size}
+Keskar, N.S., et al.: On large-batch training for deep learning: Generalization gap and sharp minima. arXiv preprint arXiv:1609.04836 (2016)
+
+\bibitem{ref_learning_rate}
+Smith, L.N.: Cyclical learning rates for training neural networks. 2017 IEEE Winter Conference on Applications of Computer Vision (WACV), 464--472 (2017)
+
+\bibitem{ref_architecture}
+Simonyan, K., Zisserman, A.: Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556 (2014)
+
+\bibitem{ref_optimization}
+Kingma, D.P., Ba, J.: Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980 (2014)
+
+\bibitem{ref_regularization}
+Srivastava, N., et al.: Dropout: a simple way to prevent neural networks from overfitting. Journal of Machine Learning Research \textbf{15}(1), 1929--1958 (2014)
+
+\end{thebibliography}

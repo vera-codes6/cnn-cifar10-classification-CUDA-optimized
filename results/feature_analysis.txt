@@ -1,0 +1,30 @@
+CNN Feature Map Analysis
+==================================================
+
+Layer: conv2d
+  Output Shape: (5, 32, 32, 32)
+  Number of Filters: 32
+  Mean Activation: 0.4229
+  Std Activation: inf
+  Max Activation: 5.8008
+  Min Activation: 0.0000
+  Sparsity: 49.93%
+
+Layer: conv2d_1
+  Output Shape: (5, 32, 32, 32)
+  Number of Filters: 32
+  Mean Activation: 0.9912
+  Std Activation: inf
+  Max Activation: 41.3125
+  Min Activation: 0.0000
+  Sparsity: 73.43%
+
+Layer: conv2d_2
+  Output Shape: (5, 16, 16, 64)
+  Number of Filters: 64
+  Mean Activation: 0.5967
+  Std Activation: inf
+  Max Activation: 34.2188
+  Min Activation: 0.0000
+  Sparsity: 86.28%
+
