@@ -167,22 +167,22 @@ class CIFAR10CNN:
         Args:
             filepath: Path to load the model from
         """
-        try:
-            self.model = keras.models.load_model(filepath)
-            print(f"Model loaded from {filepath}")
-        except Exception as e:
-            print(f"Error loading model from {filepath}: {e}")
-            # Try with legacy .h5 format if .keras fails
-            if filepath.endswith('.keras'):
-                legacy_path = filepath.replace('.keras', '.h5')
-                try:
-                    self.model = keras.models.load_model(legacy_path)
-                    print(f"Model loaded from legacy format: {legacy_path}")
-                except Exception as e2:
-                    print(f"Error loading legacy model: {e2}")
-                    raise e2
-            else:
-                raise e
+        # try:
+        self.model = keras.models.load_model(filepath)
+        #     print(f"Model loaded from {filepath}")
+        # except Exception as e:
+        #     print(f"Error loading model from {filepath}: {e}")
+        #     # Try with legacy .h5 format if .keras fails
+        #     if filepath.endswith('.keras'):
+        #         legacy_path = filepath.replace('.keras', '.h5')
+        #         try:
+        #             self.model = keras.models.load_model(legacy_path)
+        #             print(f"Model loaded from legacy format: {legacy_path}")
+        #         except Exception as e2:
+        #             print(f"Error loading legacy model: {e2}")
+        #             raise e2
+        #     else:
+        #         raise e
         return self.model
 
 def create_simple_cnn(input_shape=(32, 32, 3), num_classes=10):
@@ -196,6 +196,18 @@ def create_simple_cnn(input_shape=(32, 32, 3), num_classes=10):
     Returns:
         keras.Model: Simple CNN model
     """
+    # model = keras.Sequential([
+    #     layers.Conv2D(32, 3, activation='relu', input_shape=input_shape),
+    #     layers.MaxPooling2D(2),
+    #     layers.Conv2D(64, 3, activation='relu'),
+    #     layers.MaxPooling2D(2),
+    #     layers.Conv2D(64, 3, activation='relu'),
+    #     layers.Flatten(),
+    #     layers.Dense(64, activation='relu'),
+    #     layers.Dropout(0.5),
+    #     layers.Dense(num_classes, activation='softmax')
+    # ])
+    
     model = keras.Sequential([
         layers.Conv2D(32, 3, activation='relu', input_shape=input_shape),
         layers.MaxPooling2D(2),
@@ -207,7 +219,6 @@ def create_simple_cnn(input_shape=(32, 32, 3), num_classes=10):
         layers.Dropout(0.5),
         layers.Dense(num_classes, activation='softmax')
     ])
-    
     return model
 
 def create_deep_cnn(input_shape=(32, 32, 3), num_classes=10, num_layers=7):
@@ -235,6 +246,13 @@ def create_deep_cnn(input_shape=(32, 32, 3), num_classes=10, num_layers=7):
             model.add(layers.Dropout(0.25))
             filters *= 2
     
+    # model.add(layers.GlobalAveragePooling2D())
+    # model.add(layers.Dense(128, activation='relu'))
+    # model.add(layers.BatchNormalization())
+    # model.add(layers.Dropout(0.5))
+    # model.add(layers.Dense(64, activation='relu'))
+    # model.add(layers.Dropout(0.25))
+
     model.add(layers.GlobalAveragePooling2D())
     model.add(layers.Dense(128, activation='relu'))
     model.add(layers.BatchNormalization())
