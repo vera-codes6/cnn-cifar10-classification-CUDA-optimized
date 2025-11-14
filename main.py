@@ -371,11 +371,12 @@ def main():
 def print_model_info(model):
     """Print model information"""
     print("\n📋 Model Information:")
-    print("=" * 50)
+    print("=" * 60)
     print(f"Total parameters: {model.count_params():,}")
     
     print("\n🏗️  Model Architecture:")
-    print("-" * 30)
+    print("-" * 40)
+
     model.summary()
 
 if __name__ == "__main__":

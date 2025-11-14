@@ -148,26 +148,6 @@ def create_optimized_data_pipeline(dataset, batch_size, prefetch=True, cache=Tru
     """
     Create an optimized data pipeline
     """
-    # try:
-    #     # Cache dataset if it fits in memory
-    #     if cache:
-    #         dataset = dataset.cache()
-
-    #     # Shuffle and batch
-    #     dataset = dataset.shuffle(buffer_size=1000)
-    #     dataset = dataset.batch(batch_size)
-
-    #     # Prefetch for better performance
-    #     if prefetch:
-    #         dataset = dataset.prefetch(tf.data.AUTOTUNE)
-
-    #     print("✅ Optimized data pipeline created")
-    #     return dataset
-
-    # except Exception as e:
-    #     print(f"❌ Error creating optimized data pipeline: {e}")
-    #     return dataset
-
     try:
         # Cache dataset if it fits in memory
         if cache:
